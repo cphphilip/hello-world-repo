@@ -1,10 +1,25 @@
-name: Hello World
+name: WorkFlow filters check
 
-on: push
+on: 
+  workflow_dispatch: 
+
+  push: 
+    branches: 
+      - main
+      - '!feature/*'
+
+  pull_request: 
+    types: 
+      - opened
+      - closed
+    paths-ignore: 
+      - README.md
+    branches: 
+      - main
 
 jobs:
   hello-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo text
-        run: echo "Hello, world!"
+      - name: Check Event Name 
+        run: echo this workflow/job/step is executed for event type ${{github.event_name}}
